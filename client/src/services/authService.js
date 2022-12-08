@@ -38,7 +38,7 @@ export const loginUser = async (userData) => {
       userData,
     )
     if (response.statusText === "OK") {
-      toast.success("Login Successful...")
+      toast.success("Login Successful!")
     }
     return response.data
   } catch (error) {
