@@ -226,7 +226,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     expiresAt: Date.now() + 30 * (60 * 1000), // 30 Minutes
   }).save()
 
-  const resetURL = `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`
+  const resetURL = `${process.env.CLIENT_URL}/resetpassword/${resetToken}`
 
   const message = `<h2>Hello ${user.name}</h2> 
   <p>Please use the URL below to reset your message.</p> 
