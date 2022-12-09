@@ -5,22 +5,26 @@ const cloudinary = require("cloudinary").v2
 
 const createProduct = asyncHandler(async (req, res) => {
   const { name, sku, category, quantity, price, description } = req.body
+
+  //   Validation
   if (!name || !category || !quantity || !price || !description) {
     res.status(400)
-    throw new Error("Please add all required fields.")
+    throw new Error("Please fill in all fields")
   }
-  // Handle Image Upload
+
+  // Handle Image upload
   let fileData = {}
   if (req.file) {
+    // Save image to cloudinary
     let uploadedFile
     try {
       uploadedFile = await cloudinary.uploader.upload(req.file.path, {
-        folder: "IMS-POC",
+        folder: "Pinvent App",
         resource_type: "image",
       })
-    } catch {
+    } catch (error) {
       res.status(500)
-      throw new Error("Image could not be uploaded.")
+      throw new Error("Image could not be uploaded")
     }
 
     fileData = {

@@ -1,9 +1,12 @@
 import React, { useState } from "react"
-import ProductForm from "../../components/productForm/ProductForm"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { selectIsLoading } from "../../redux/features/product/productSlice"
-import { createProduct } from "../../redux/features/product/productSlice"
+import Loader from "../../components/loader/Loader"
+import ProductForm from "../../components/product/productForm/ProductForm"
+import {
+  createProduct,
+  selectIsLoading,
+} from "../../redux/features/product/productSlice"
 
 const initialState = {
   name: "",
@@ -35,7 +38,7 @@ const AddProduct = () => {
   }
 
   const generateSKU = (category) => {
-    const letter = category.slice(0, 3).toUppercase()
+    const letter = category.slice(0, 3).toUpperCase()
     const number = Date.now()
     const sku = letter + "-" + number
     return sku
@@ -47,12 +50,10 @@ const AddProduct = () => {
     formData.append("name", name)
     formData.append("sku", generateSKU(category))
     formData.append("category", category)
-    formData.append("quantity", quantity)
+    formData.append("quantity", Number(quantity))
     formData.append("price", price)
     formData.append("description", description)
     formData.append("image", productImage)
-
-    console.log(formData)
 
     await dispatch(createProduct(formData))
 
@@ -61,6 +62,7 @@ const AddProduct = () => {
 
   return (
     <div>
+      {isLoading && <Loader />}
       <h3 className="--mt">Add New Product</h3>
       <ProductForm
         product={product}
