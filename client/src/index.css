@@ -329,6 +329,7 @@ p {
 .--btn-danger {
   color: #fff;
   background: orangered;
+  margin-bottom: 1rem;
 }
 
 .--btn-success {
